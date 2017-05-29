@@ -6,10 +6,14 @@ class Api::V1::UsersController < ApplicationController
   # POST /users
   def create  #esperamos el uid provider
     #params = { auth: { provider: 'facebook', uid: '123adf' }}
-    @user = User.from_omniauth(params[:auth])
-    #@token = Token.create(user: @user)
-    @token = @user.tokens.create()
+    if !params[:auth]
+      render json: { error: "Auth param is missing" }
+    else
+      @user = User.from_omniauth(params[:auth])
+      #@token = Token.create(user: @user)
+      @token = @user.tokens.create()
 
-    render "api/v1/users/show"
+      render "api/v1/users/show"
+    end
   end
 end
