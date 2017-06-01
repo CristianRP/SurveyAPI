@@ -3,6 +3,7 @@ class User < ApplicationRecord
   validates :uid, presence: true
   validates :provider, presence: true
   has_many :tokens
+  has_many :my_polls
 
   def self.from_omniauth(data)
     # {provider: 'facebook'\\'google', uid: '12345', info: {email: 'uriel', name: 'Cristian'}}
